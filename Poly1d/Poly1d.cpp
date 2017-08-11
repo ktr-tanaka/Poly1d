@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <ostream>
 #include <iostream>
+#include <stdexcept>
 
 template <typename T>
 bool is_zero(T val, double epsilon = 1e-7) {
@@ -60,30 +61,36 @@ double Poly1d::operator[](int n) const {
 }
 
 std::ostream& operator<<(std::ostream& ost, const Poly1d& obj) {
-	for (int n = obj.order_; n >= 0; --n) {
-		if (is_zero(obj[n])){
-			/* ŒW”‚ª 0 ‚È‚ç•\Ž¦‚µ‚È‚¢ */
-			continue;
-		}
-		else {
-			if (n != obj.order_) {
-				if (obj[n] > 0) {
-					ost << " + ";
-				}
-				else {
-					ost << " - ";
-				}
-			}
-			ost << std::fabs(obj[n]);
-			if (n > 1) {
-				ost << " " << obj.variable_ << "^" << n;
-			}
-			else if (n == 1) {
-				ost << " " << obj.variable_;
-			}
-		}
+	if (obj.order_ == 0) {
+		ost << obj[0];
+		return ost;
 	}
-	return ost;
+	else {
+		for (int n = obj.order_; n >= 0; --n) {
+			if (is_zero(obj[n])) {
+				/* ŒW”‚ª 0 ‚È‚ç•\Ž¦‚µ‚È‚¢ */
+				continue;
+			}
+			else {
+				if (n != obj.order_) {
+					if (obj[n] > 0) {
+						ost << " + ";
+					}
+					else {
+						ost << " - ";
+					}
+				}
+				ost << std::fabs(obj[n]);
+				if (n > 1) {
+					ost << " " << obj.variable_ << "^" << n;
+				}
+				else if (n == 1) {
+					ost << " " << obj.variable_;
+				}
+			}
+		}
+		return ost;
+	}
 }
 
 std::vector<cv::Vec2d> Poly1d::roots() const {
@@ -112,10 +119,26 @@ std::vector<cv::Vec2d> Poly1d::getRoots_() const {
 	return result;
 }
 
-Poly1d Poly1d::deriv() const {
+Poly1d Poly1d::deriv(int m) const {
+	if (m < 0) {
+		throw std::invalid_argument(
+			"”÷•ª‰ñ”‚Í 0 ˆÈã‚Å‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñ"
+		);
+	}
+	Poly1d tmp = *this;
+	for (int i = 0; i < m; ++i) {
+		tmp = tmp.derivOnce_();
+		if (tmp.order_ == 0 && is_zero(tmp[0])) {
+			break;
+		}
+	}
+	return tmp;
+}
+
+Poly1d Poly1d::derivOnce_() const {
 	std::vector<double> deriv_coeffs;
 	if (order_ >= 1) {
-		for (int n = order_; n > 0; --n) {
+		for (int n = order_; n >= 1; --n) {
 			deriv_coeffs.push_back((*this)[n] * n);
 		}
 	}
@@ -125,3 +148,13 @@ Poly1d Poly1d::deriv() const {
 
 	return Poly1d(deriv_coeffs);
 }
+
+//Poly1d Poly1d::integ() const {
+//	std::vector<double> integ_coeffs;
+//	if (order_ >= 1) {
+//		for (int n = order_; n >= 1; --n) {
+//
+//		}
+//	}
+//
+//}

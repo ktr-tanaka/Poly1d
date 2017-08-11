@@ -42,11 +42,17 @@ int main() {
 	std::cout << poly2 << std::endl;
 	
 	/* ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ÍH */
-	Poly1d poly3(std::vector<double>(0));
+	Poly1d poly3(std::vector<double>(6));
+	std::cout << "poly3: " << poly3 << std::endl;
 	poly3 = poly1;
 	std::cout << poly3 << std::endl;
 
 	/* ‚Ñ‚Ô‚ñ` */
 	std::cout << poly1.deriv() << std::endl;
+	/* ‚É`‚©`‚¢`‚Ñ`‚Ô`‚ñ```` */
+	std::cout << poly1.deriv(2) << std::endl;
+	/* ‚²`‚©`‚¢`(ry*/
+	std::cout << poly1.deriv(3) << std::endl;
+	Poly1d check = poly1.deriv(3);
 }
 

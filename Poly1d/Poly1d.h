@@ -83,11 +83,13 @@ public:
 	friend std::ostream& operator<<(std::ostream& ost, const Poly1d& obj);
 
 	/**
-	  @brief 多項式を微分する
+	  @brief 多項式を m 回微分する
 
+	  @param [in] m 微分回数 (>= 0)
 	  @return 微分した結果の Poly1d オブジェクト。
+	  @exception invalid_argument 負の m が渡された場合に throw
 	*/
-	Poly1d deriv() const;
+	Poly1d deriv(int m = 1) const;
 
 	/**
 	  @brief 多項式を積分する
@@ -122,6 +124,13 @@ private:
 	  @return 根（虚数根も含む）
 	*/
 	std::vector<cv::Vec2d> getRoots_() const;
+
+	/**
+	  @brief １回微分を実行する。
+
+	  @return １回微分を実行した結果の Poly1d オブジェクト
+	*/
+	Poly1d derivOnce_() const;
 };
 
 
