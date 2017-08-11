@@ -139,6 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Poly1d.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Poly1d.cpp" />
+    <ClCompile Include="TestPoly1d.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
