@@ -54,5 +54,10 @@ int main() {
 	/* Ç≤Å`Ç©Å`Ç¢Å`(ry*/
 	std::cout << poly1.deriv(3) << std::endl;
 	Poly1d check = poly1.deriv(3);
+
+	std::cout << poly1.integ(1, 2) << std::endl;
+	std::cout << poly1.integ(3, 2) << std::endl;
+	std::vector<double> k = { 1,2, 3 };
+	std::cout << poly1.integ(3, k) << std::endl;
 }
 

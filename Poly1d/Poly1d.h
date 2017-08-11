@@ -92,12 +92,25 @@ public:
 	Poly1d deriv(int m = 1) const;
 
 	/**
-	  @brief 多項式を積分する
+	  @brief 多項式を m 回不定積分する
 
+	  @param [in] m 不定積分回数 (>= 0)
+	  @param [in] k 積分定数。m 回のすべての積分で同一の積分定数を用いる。
 	  @return 積分した結果の Poly1d オブジェクト。
+	  @exception invalid_argument 負の m が渡された場合に throw
 	*/
-	Poly1d integ() const;
+	Poly1d integ(int m, double k = 0) const;
 
+	/**
+	  @brief 多項式を m 回不定積分する
+
+	  @param [in] m 不定積分回数 (>= 0)
+	  @param [in] k 積分定数。m 回のすべての積分の積分定数を明示的に指定する。
+	  @return 積分した結果の Poly1d オブジェクト。
+	  @exception invalid_argument 負の m が渡された場合に throw
+	  @exception invalid_argument 不定積分回数に対し積分定数の個数が不足する場合に throws
+	*/
+	Poly1d integ(int m, std::vector<double> k) const;
 
 private:
 	std::vector<double> coeffs_; //!< 多項式の係数。高次から順に格納。
@@ -131,6 +144,14 @@ private:
 	  @return １回微分を実行した結果の Poly1d オブジェクト
 	*/
 	Poly1d derivOnce_() const;
+
+	/**
+	  @brief １回不定積分を実行する。
+
+	  @param [in] k 積分定数
+	  @return １回不定積分を実行した結果の Poly1d オブジェクト
+	*/
+	Poly1d integOnce_(double k = 0) const;
 };
 
 

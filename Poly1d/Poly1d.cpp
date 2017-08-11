@@ -135,6 +135,38 @@ Poly1d Poly1d::deriv(int m) const {
 	return tmp;
 }
 
+Poly1d Poly1d::integ(int m, double k) const{
+	if (m < 0) {
+		throw std::invalid_argument(
+			"Ï•ª‰ñ”‚Í 0 ˆÈã‚Å‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñ"
+		);
+	}
+	Poly1d tmp = *this;
+	for (int i = 0; i < m; ++i) {
+		tmp = tmp.integOnce_(k);
+	}
+	return tmp;
+}
+
+Poly1d Poly1d::integ(int m, std::vector<double> k) const {
+	if (m < 0) {
+		throw std::invalid_argument(
+			"Ï•ª‰ñ”‚Í 0 ˆÈã‚Å‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñ"
+		);
+	}
+	if (m > k.size()) {
+		/* TODO vector‚Ì—Ìˆæ‚ÍŠm•Û‚³‚ê‚Ä‚¢‚é‚ª’†g‚ª‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«‚Ìsize()‚Ì‹““®‚ÍH */
+		throw std::invalid_argument(
+			"Ï•ª’è”‚Ì”‚ª‘«‚è‚Ü‚¹‚ñ"
+		);
+	}
+	Poly1d tmp = *this;
+	for (int i = 0; i < m; ++i) {
+		tmp = tmp.integOnce_(k[i]);
+	}
+	return tmp;
+}
+
 Poly1d Poly1d::derivOnce_() const {
 	std::vector<double> deriv_coeffs;
 	if (order_ >= 1) {
@@ -149,12 +181,12 @@ Poly1d Poly1d::derivOnce_() const {
 	return Poly1d(deriv_coeffs);
 }
 
-//Poly1d Poly1d::integ() const {
-//	std::vector<double> integ_coeffs;
-//	if (order_ >= 1) {
-//		for (int n = order_; n >= 1; --n) {
-//
-//		}
-//	}
-//
-//}
+Poly1d Poly1d::integOnce_(double k) const {
+	std::vector<double> integ_coeffs;
+	for (int n = order_; n >= 0; --n) {
+		integ_coeffs.push_back((*this)[n] / (n + 1));
+	}
+	integ_coeffs.push_back(k);
+
+	return Poly1d(integ_coeffs);
+}
