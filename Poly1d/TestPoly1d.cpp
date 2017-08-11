@@ -31,5 +31,10 @@ int main() {
 
 	std::cout << poly1[2] << std::endl;
 	std::cout << poly1[-100] << std::endl;
+
+	std::cout << poly1 << std::endl;
+
+	print_contents_of_vector(poly1.roots());
+	print_contents_of_vector(poly1.rootsReal());
 }
 
