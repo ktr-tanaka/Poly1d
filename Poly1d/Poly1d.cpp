@@ -111,3 +111,17 @@ std::vector<cv::Vec2d> Poly1d::getRoots_() const {
 	cv::solvePoly(tmp, result);
 	return result;
 }
+
+Poly1d Poly1d::deriv() const {
+	std::vector<double> deriv_coeffs;
+	if (order_ >= 1) {
+		for (int n = order_; n > 0; --n) {
+			deriv_coeffs.push_back((*this)[n] * n);
+		}
+	}
+	else {
+		deriv_coeffs.push_back(0);
+	}
+
+	return Poly1d(deriv_coeffs);
+}

@@ -82,6 +82,20 @@ public:
 	*/
 	friend std::ostream& operator<<(std::ostream& ost, const Poly1d& obj);
 
+	/**
+	  @brief 多項式を微分する
+
+	  @return 微分した結果の Poly1d オブジェクト。
+	*/
+	Poly1d deriv() const;
+
+	/**
+	  @brief 多項式を積分する
+
+	  @return 積分した結果の Poly1d オブジェクト。
+	*/
+	Poly1d integ() const;
+
 
 private:
 	std::vector<double> coeffs_; //!< 多項式の係数。高次から順に格納。

@@ -36,5 +36,17 @@ int main() {
 
 	print_contents_of_vector(poly1.roots());
 	print_contents_of_vector(poly1.rootsReal());
+
+	/* 代入演算子働くよね？ */
+	Poly1d poly2 = poly1;
+	std::cout << poly2 << std::endl;
+	
+	/* コピーコンストラクタは？ */
+	Poly1d poly3(std::vector<double>(0));
+	poly3 = poly1;
+	std::cout << poly3 << std::endl;
+
+	/* びぶん～ */
+	std::cout << poly1.deriv() << std::endl;
 }
 
