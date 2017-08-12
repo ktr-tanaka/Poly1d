@@ -43,6 +43,12 @@ static std::vector<T> sub_vector(const std::vector<T>& lop, const std::vector<T>
 	return result;
 }
 
+template <typename T>
+static void insert_zero_into_vector(std::vector<T>& vec, int n) {
+	for (int i = 0; i < n; ++i) {
+		vec.insert(vec.begin(), 0);
+	}
+}
 
 Poly1d::Poly1d(const std::vector<double>& coeffs) {
 	if (coeffs.empty()) {
