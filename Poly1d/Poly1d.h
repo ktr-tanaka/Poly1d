@@ -184,6 +184,15 @@ public:	/* 演算子オーバーロード */
 	*/
 	std::vector<Poly1d> operator/(const Poly1d& rop) const;
 
+	/**
+	@brief 多項式の係数をスカラーで割る
+
+	@param [in] rop
+	@return 除算結果の Poly1d オブジェクト
+	@exception invalid_argument rop が 0 のときに throw
+	*/
+	Poly1d operator/(double rop) const;
+
 
 private:
 	std::vector<double> coeffs_; //!< 多項式の係数。高次から順に格納。

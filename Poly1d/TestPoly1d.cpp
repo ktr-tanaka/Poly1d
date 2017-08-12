@@ -72,5 +72,13 @@ int main() {
 	std::cout << 5 + (-poly1) << std::endl;
 
 	std::cout << poly1 * poly1 << std::endl;
+
+	std::vector<double> poly4_coeffs = { 2, -3, -1, 3 };
+	Poly1d poly4(poly4_coeffs);
+	print_contents_of_vector(poly1 / poly4);
+
+	std::cout << poly1 << std::endl;
+	std::cout << poly1 * 10 << std::endl;
+	std::cout << poly1 / 10 << std::endl;
 }
 

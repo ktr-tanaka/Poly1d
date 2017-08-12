@@ -236,6 +236,13 @@ std::vector<Poly1d> Poly1d::operator/(const Poly1d& denominator) const {
 	return result;
 }
 
+Poly1d Poly1d::operator/(double rop) const {
+	if (is_zero(rop)) {
+		throw std::invalid_argument("0 œZ‚Å‚·");
+	}
+	return (*this) * (1.0 / rop);
+}
+
 bool Poly1d::is_zero_() const {
 	if (this->order_ == 0 && is_zero(this->coeffs_[0])) {
 		return true;
