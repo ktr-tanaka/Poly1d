@@ -219,13 +219,21 @@ Poly1d Poly1d::operator*(const Poly1d& rop) const {
 	return Poly1d(result_coeffs);
 }
 
-std::vector<Poly1d> Poly1d::operator/(const Poly1d& rop) const {
-	if (rop.is_zero_()) {
+std::vector<Poly1d> Poly1d::operator/(const Poly1d& denominator) const {
+	if (denominator.is_zero_()) {
 		throw std::invalid_argument("0 œŽZ‚Å‚·");
 	}
+	Poly1d numerator = (*this);
+
 	Poly1d quotient(0);
 	Poly1d reminder = (*this);
-
+	while ((!reminder.is_zero_()) && (reminder.order_ >= denominator.order_)) {
+		Poly1d temp = divideLeadingTerms_(reminder, denominator);
+		quotient = quotient + temp;
+		reminder = reminder - temp * denominator;
+	}
+	std::vector<Poly1d> result = { quotient, reminder };
+	return result;
 }
 
 bool Poly1d::is_zero_() const {
