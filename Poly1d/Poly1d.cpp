@@ -4,6 +4,7 @@
 #include <ostream>
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
 
 template <typename T>
 static bool is_zero(T val, double epsilon = 1e-7) {
@@ -195,6 +196,27 @@ Poly1d operator-(double lop, const Poly1d& rop) {
 
 std::vector<cv::Vec2d> Poly1d::roots() const {
 	return getRoots_();
+}
+
+Poly1d Poly1d::operator*(const Poly1d& rop) const {
+	std::vector<double> lop_coeffs = this->coeffs_;
+	std::vector<double> rop_coeffs = rop.coeffs_;
+	int lop_order = this->order_;
+	int rop_order = rop.order_;
+
+	/* ‚Ü‚¸ŠÈ’P‚Ì‚½‚ß‚ÉAresult_coeffs‚É‚Í’áŸ‚Ì€‚©‚ç‡”Ô‚É‹l‚ß‚Ä‚¢‚­‚±‚Æ‚É‚·‚é */
+	/* result_coeffs ‚Í‚Ü‚¸ 0 ‚Å‘S—v‘f‰Šú‰»‚·‚é */
+	std::vector<double> result_coeffs(lop_order + rop_order + 1, 0);
+	for (int m = lop_order; m >= 0; --m) {
+		for (int n = rop_order; n >= 0; --n) {
+			/* m + n Ÿ‚Ì€‚ÌŒW”‚É‘«‚µ‚Ş */
+			result_coeffs[m + n] += (*this)[m] * rop[n];
+		}
+	}
+	/* ‚ŸŒW”‚©‚ç‚É•À‚Ñ‘Ö‚¦‚é */
+	std::reverse(result_coeffs.begin(), result_coeffs.end());
+
+	return Poly1d(result_coeffs);
 }
 
 std::vector<double> Poly1d::rootsReal(double epsilon) const {

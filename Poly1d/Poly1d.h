@@ -165,6 +165,14 @@ public:	/* 演算子オーバーロード */
 	*/
 	Poly1d operator-() const;
 
+	/**
+	@brief 多項式の乗算
+
+	@param [in] rop
+	@return 多項式を乗算した結果の Poly1d オブジェクト
+	*/
+	Poly1d operator*(const Poly1d& rop) const;
+
 
 private:
 	std::vector<double> coeffs_; //!< 多項式の係数。高次から順に格納。
