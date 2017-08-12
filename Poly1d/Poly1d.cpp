@@ -6,8 +6,15 @@
 #include <stdexcept>
 
 template <typename T>
-bool is_zero(T val, double epsilon = 1e-7) {
+static bool is_zero(T val, double epsilon = 1e-7) {
 	return std::fabs(val) < epsilon;
+}
+
+template <typename T>
+static void invert_sign_of_vector(std::vector<T> vec) {
+	for (size_t i = 0, size = vec.size; i < size; ++i) {
+		vec[i] = -vec[i];
+	}
 }
 
 Poly1d::Poly1d(const std::vector<double>& coeffs) {
@@ -102,6 +109,12 @@ Poly1d Poly1d::operator+(double rop) const {
 Poly1d operator+(double lop, const Poly1d& rop) {
 	std::vector<double> coeffs = rop.coeffs_;
 	coeffs[coeffs.size() - 1] += lop;
+	return Poly1d(coeffs);
+}
+
+Poly1d Poly1d::operator-() const {
+	std::vector<double> coeffs = this->coeffs_;
+	invert_sign_of_vector(coeffs);
 	return Poly1d(coeffs);
 }
 

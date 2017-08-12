@@ -130,6 +130,30 @@ public:	/* 演算子オーバーロード */
 	*/
 	friend Poly1d operator+(double lop, const Poly1d& rop);
 
+	/**
+	@brief 多項式の符号を反転させる
+
+	@return 係数の符号を反転させた Poly1d オブジェクトs
+	*/
+	Poly1d operator-() const;
+
+	/**
+	@brief 多項式から定数を引く f(x) - rop
+
+	@param [in] rop 定数
+	@return 定数を引いた結果の Poly1d オブジェクト
+	*/
+	Poly1d operator-(double rop) const;
+
+	/**
+	@brief 定数から多項式を引く lop - f(x)
+
+	@param [in] lop 定数
+	@param [in] rop Poly1d オブジェクト
+	@return 定数から引いた結果の Poly1d オブジェクト
+	*/
+	friend Poly1d operator-(double lop, const Poly1d& rop);
+
 private:
 	std::vector<double> coeffs_; //!< 多項式の係数。高次から順に格納。
 	int size_; //!< 多項式の係数を格納した coeffs_ の要素数。
