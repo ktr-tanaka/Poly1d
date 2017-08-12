@@ -172,6 +172,11 @@ Poly1d Poly1d::operator+(const Poly1d& rop) const {
 	return Poly1d(result_coeffs);
 }
 
+Poly1d operator+(double lop, const Poly1d& rop) {
+	Poly1d lop_poly1d(lop);
+	return lop_poly1d + rop;
+}
+
 Poly1d Poly1d::operator-(const Poly1d& rop) const {
 	std::vector<double> lop_coeffs = this->coeffs_;
 	std::vector<double> rop_coeffs = rop.coeffs_;
@@ -183,7 +188,10 @@ Poly1d Poly1d::operator-(const Poly1d& rop) const {
 	return Poly1d(result_coeffs);
 }
 
-
+Poly1d operator-(double lop, const Poly1d& rop) {
+	Poly1d lop_poly1d(lop);
+	return lop_poly1d - rop;
+}
 
 std::vector<cv::Vec2d> Poly1d::roots() const {
 	return getRoots_();

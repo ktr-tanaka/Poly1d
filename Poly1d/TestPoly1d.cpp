@@ -62,5 +62,11 @@ int main() {
 
 	std::cout << Poly1d(4) << std::endl;
 	std::cout << -poly1 << std::endl;
+
+	std::cout << poly1 + poly1 << std::endl;
+	std::cout << poly1 - poly1 << std::endl;
+	std::cout << poly1 + 5 << std::endl;
+	std::cout << 5 + poly1 << std::endl;
+	std::cout << poly1 - 5 << std::endl;
 }
 

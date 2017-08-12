@@ -129,12 +129,34 @@ public:	/* 演算子オーバーロード */
 	Poly1d operator+(const Poly1d& rop) const;
 
 	/**
+	@brief 定数に多項式を加算する
+
+	定数を右から足す場合は定数を使うコンストラクタが呼ばれて暗黙にキャストされるので問題なし。このオーバーロードは定数を左から足す場合。
+
+	@param [in] lop
+	@param [in] rop
+	@return 定数を加算した結果の Poly1d オブジェクト
+	*/
+	friend Poly1d operator+(double lop, const Poly1d& rop);
+
+	/**
 	@brief 多項式の減算を行う
 
 	@param [in] rop
 	@return 減算した結果の Poly1d オブジェクト
 	*/
 	Poly1d operator-(const Poly1d& rop) const;
+
+	/**
+	@brief 定数から多項式を減算する
+
+	定数を多項式から引く場合は定数を使うコンストラクタが呼ばれて暗黙にキャストされるので問題なし。このオーバーロードは定数から多項式を引く場合。
+
+	@param [in] lop
+	@param [in] rop
+	@return 定数から減算した結果の Poly1d オブジェクト
+	*/
+	friend Poly1d operator-(double lop, const Poly1d& rop);
 
 	/**
 	@brief 多項式の符号を反転させる
