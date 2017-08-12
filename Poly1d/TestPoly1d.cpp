@@ -70,5 +70,7 @@ int main() {
 	std::cout << poly1 - 5 << std::endl;
 	std::cout << 5 - poly1 << std::endl;
 	std::cout << 5 + (-poly1) << std::endl;
+
+	std::cout << poly1 * poly1 << std::endl;
 }
 

@@ -219,6 +219,26 @@ Poly1d Poly1d::operator*(const Poly1d& rop) const {
 	return Poly1d(result_coeffs);
 }
 
+std::vector<Poly1d> Poly1d::operator/(const Poly1d& rop) const {
+
+}
+
+Poly1d divideLeadingTerms_(const Poly1d& lop, const Poly1d& rop) {
+	if (lop.order_ < rop.order_) {
+		return Poly1d(0);
+	}
+	else {
+		/* Å‚Ÿ‚ÌŒW”‚ÌœZ */
+		double coeff = lop.coeffs_[0] / rop.coeffs_[0];
+		/* ‚»‚ÌŸ” */
+		int order = lop.order_ - rop.order_;
+		/* ŒW”‚ÌƒxƒNƒ^[‚ğì»B0 ‚Å‰Šú‰» */
+		std::vector<double> coeffs(order + 1, 0);
+		coeffs[0] = coeff;
+		return Poly1d(coeffs);
+	}
+}
+
 std::vector<double> Poly1d::rootsReal(double epsilon) const {
 	/* ‹•”ª‚àŠÜ‚ß‚Äª‚ğ‹‚ß‚é */
 	std::vector<cv::Vec2d> tmp = getRoots_();

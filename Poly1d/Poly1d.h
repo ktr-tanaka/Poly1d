@@ -173,6 +173,17 @@ public:	/* 演算子オーバーロード */
 	*/
 	Poly1d operator*(const Poly1d& rop) const;
 
+	/**
+	@brief 多項式の除算
+
+	擬似コードはここ 
+	https://en.wikipedia.org/wiki/Polynomial_long_division
+
+	@param [in] rop
+	@return 除算結果の vector。[0] 商 [1] 剰余
+	*/
+	std::vector<Poly1d> operator/(const Poly1d& rop) const;
+
 
 private:
 	std::vector<double> coeffs_; //!< 多項式の係数。高次から順に格納。
@@ -214,6 +225,15 @@ private:
 	  @return １回不定積分を実行した結果の Poly1d オブジェクト
 	*/
 	Poly1d integOnce_(double k = 0) const;
+
+	/**
+	  @brief 多項式の最高次の項の除算結果を返す
+
+	  @param [in] lop Left operand
+	  @param [in] rop Right operand
+	  @return lop と rop の最高次の項の除算結果 Poly1d オブジェクト
+	*/
+	friend Poly1d divideLeadingTerms_(const Poly1d& lop, const Poly1d& rop);
 };
 
 
