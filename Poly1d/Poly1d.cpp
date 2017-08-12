@@ -93,6 +93,20 @@ std::ostream& operator<<(std::ostream& ost, const Poly1d& obj) {
 	}
 }
 
+Poly1d Poly1d::operator+(double rop) const {
+	std::vector<double> coeffs = this->coeffs_;
+	coeffs[coeffs.size() - 1] += rop;
+	return Poly1d(coeffs);
+}
+
+Poly1d operator+(double lop, const Poly1d& rop) {
+	std::vector<double> coeffs = rop.coeffs_;
+	coeffs[coeffs.size() - 1] += lop;
+	return Poly1d(coeffs);
+}
+
+
+
 std::vector<cv::Vec2d> Poly1d::roots() const {
 	return getRoots_();
 }

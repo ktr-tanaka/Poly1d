@@ -37,24 +37,6 @@ public:
 	int order() const;
 
 	/**
-	  @brief 多項式の値を計算して結果を返す。
-
-	  @param [in] x y = f(x) の x
-	  @return y = f(x) の y
-	*/
-	double operator()(double x) const;
-
-	/**
-	  @brief 指定した次数の項の係数を返す。
-
-	  係数を格納したベクターの範囲外が参照された場合は 0 を返す。
-
-	  @param [in] n 次数
-	  @return 対応する係数
-	*/
-	double operator[](int n) const;
-
-	/**
 	  @brief 多項式の根を求める。
 
 	  vector の各要素は cv::Vec2d(実部、虚部）の形式。
@@ -72,15 +54,6 @@ public:
 	  @return 実数根。実数根が存在しない場合は空のベクターを返す。
 	*/
 	std::vector<double> rootsReal(double epsilon = 1e-7) const;
-
-	/**
-	  @brief 多項式を代数的に表示する
-
-	  @param [in, out] ost 出力ストリーム
-	  @param [in] obj 出力させたい Poly1d オブジェクト
-	  @return obj の内容を入力した後の ost への参照
-	*/
-	friend std::ostream& operator<<(std::ostream& ost, const Poly1d& obj);
 
 	/**
 	  @brief 多項式を m 回微分する
@@ -111,6 +84,51 @@ public:
 	  @exception invalid_argument 不定積分回数に対し積分定数の個数が不足する場合に throws
 	*/
 	Poly1d integ(int m, std::vector<double> k) const;
+
+public:	/* 演算子オーバーロード */
+	/**
+	@brief 多項式を代数的に表示する
+
+	@param [in, out] ost 出力ストリーム
+	@param [in] obj 出力させたい Poly1d オブジェクト
+	@return obj の内容を入力した後の ost への参照
+	*/
+	friend std::ostream& operator<<(std::ostream& ost, const Poly1d& obj);
+
+	/**
+	@brief 多項式の値を計算して結果を返す。
+
+	@param [in] x y = f(x) の x
+	@return y = f(x) の y
+	*/
+	double operator()(double x) const;
+
+	/**
+	@brief 指定した次数の項の係数を返す。
+
+	係数を格納したベクターの範囲外が参照された場合は 0 を返す。
+
+	@param [in] n 次数
+	@return 対応する係数
+	*/
+	double operator[](int n) const;
+
+	/**
+	@brief 多項式に定数を加える f(x) + rop
+
+	@param [in] rop 定数
+	@return 定数を加えた結果の Poly1d オブジェクト
+	*/
+	Poly1d operator+(double rop) const;
+
+	/**
+	@brief 多項式に定数を加える lop + f(x)
+
+	@param [in] lop 定数
+	@param [in] rop Poly1d オブジェクト
+	@return 定数を加えた結果の Poly1d オブジェクト
+	*/
+	friend Poly1d operator+(double lop, const Poly1d& rop);
 
 private:
 	std::vector<double> coeffs_; //!< 多項式の係数。高次から順に格納。
