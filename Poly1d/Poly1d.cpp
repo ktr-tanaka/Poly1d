@@ -229,7 +229,7 @@ std::vector<Poly1d> Poly1d::operator/(const Poly1d& rop) const {
 }
 
 bool Poly1d::is_zero_() const {
-	if (this->order_ == 0 && is_zero(this->coeffs_[0]) {
+	if (this->order_ == 0 && is_zero(this->coeffs_[0])) {
 		return true;
 	}
 	else {
