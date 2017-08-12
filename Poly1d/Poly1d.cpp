@@ -50,6 +50,17 @@ static void insert_zero_into_vector(std::vector<T>& vec, int n) {
 	}
 }
 
+template <typename T>
+static void align_size_of_vectors(std::vector<T>& vec1, std::vector<T>& vec2) {
+	/* 要素数が少ないベクターの先頭を 0 で埋める */
+	if (vec1.size() > vec2.size()) {
+		insert_zero_into_vector(vec2, vec1.size() - vec2.size());
+	}
+	else if (vec1.size() < vec2.size()) {
+		insert_zero_into_vector(vec1, vec2.size() - vec1.size());
+	}
+}
+
 Poly1d::Poly1d(const std::vector<double>& coeffs) {
 	if (coeffs.empty()) {
 		coeffs_.push_back(0);
@@ -144,27 +155,34 @@ std::ostream& operator<<(std::ostream& ost, const Poly1d& obj) {
 	}
 }
 
-//Poly1d Poly1d::operator+(double rop) const {
-//	std::vector<double> coeffs = this->coeffs_;
-//	coeffs[coeffs.size() - 1] += rop;
-//	return Poly1d(coeffs);
-//}
-//
-//Poly1d operator+(double lop, const Poly1d& rop) {
-//	std::vector<double> coeffs = rop.coeffs_;
-//	coeffs[coeffs.size() - 1] += lop;
-//	return Poly1d(coeffs);
-//}
-
 Poly1d Poly1d::operator-() const {
 	std::vector<double> coeffs = this->coeffs_;
 	invert_sign_of_vector(coeffs);
 	return Poly1d(coeffs);
 }
 
-//Poly1d Poly1d::operator-(double rop) const {
-//
-//}
+Poly1d Poly1d::operator+(const Poly1d& rop) const {
+	std::vector<double> lop_coeffs = this->coeffs_;
+	std::vector<double> rop_coeffs = rop.coeffs_;
+
+	align_size_of_vectors(lop_coeffs, rop_coeffs);
+
+	std::vector<double> result_coeffs = add_vector(lop_coeffs, rop_coeffs);
+
+	return Poly1d(result_coeffs);
+}
+
+Poly1d Poly1d::operator-(const Poly1d& rop) const {
+	std::vector<double> lop_coeffs = this->coeffs_;
+	std::vector<double> rop_coeffs = rop.coeffs_;
+
+	align_size_of_vectors(lop_coeffs, rop_coeffs);
+
+	std::vector<double> result_coeffs = sub_vector(lop_coeffs, rop_coeffs);
+
+	return Poly1d(result_coeffs);
+}
+
 
 
 std::vector<cv::Vec2d> Poly1d::roots() const {

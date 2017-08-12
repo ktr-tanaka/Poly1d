@@ -121,21 +121,20 @@ public:	/* 演算子オーバーロード */
 	double operator[](int n) const;
 
 	/**
-	@brief 多項式に定数を加える f(x) + rop
+	@brief 多項式の加算を行う
 
-	@param [in] rop 定数
-	@return 定数を加えた結果の Poly1d オブジェクト
+	@param [in] rop
+	@return 加算した結果の Poly1d オブジェクト
 	*/
-	//Poly1d operator+(double rop) const;
+	Poly1d operator+(const Poly1d& rop) const;
 
 	/**
-	@brief 多項式に定数を加える lop + f(x)
+	@brief 多項式の減算を行う
 
-	@param [in] lop 定数
-	@param [in] rop Poly1d オブジェクト
-	@return 定数を加えた結果の Poly1d オブジェクト
+	@param [in] rop
+	@return 減算した結果の Poly1d オブジェクト
 	*/
-	//friend Poly1d operator+(double lop, const Poly1d& rop);
+	Poly1d operator-(const Poly1d& rop) const;
 
 	/**
 	@brief 多項式の符号を反転させる
@@ -144,22 +143,6 @@ public:	/* 演算子オーバーロード */
 	*/
 	Poly1d operator-() const;
 
-	/**
-	@brief 多項式から定数を引く f(x) - rop
-
-	@param [in] rop 定数
-	@return 定数を引いた結果の Poly1d オブジェクト
-	*/
-	//Poly1d operator-(double rop) const;
-
-	/**
-	@brief 定数から多項式を引く lop - f(x)
-
-	@param [in] lop 定数
-	@param [in] rop Poly1d オブジェクト
-	@return 定数から引いた結果の Poly1d オブジェクト
-	*/
-	//friend Poly1d operator-(double lop, const Poly1d& rop);
 
 private:
 	std::vector<double> coeffs_; //!< 多項式の係数。高次から順に格納。
