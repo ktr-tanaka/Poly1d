@@ -17,6 +17,33 @@ static void invert_sign_of_vector(std::vector<T>& vec) {
 	}
 }
 
+template <typename T>
+static std::vector<T> add_vector(const std::vector<T>& lop, const std::vector<T>& rop) {
+	if (lop.size() != rop.size()) {
+		throw std::invalid_argument("add_vector: ２つの vector のサイズが異なります");
+	}
+	size_t size = lop.size();
+	std::vector<T> result(size);
+	for (size_t i = 0; i < size; ++i) {
+		result[i] = lop[i] + rop[i];
+	}
+	return result;
+}
+
+template <typename T>
+static std::vector<T> sub_vector(const std::vector<T>& lop, const std::vector<T>& rop) {
+	if (lop.size() != rop.size()) {
+		throw std::invalid_argument("sub_vector: ２つの vector のサイズが異なります");
+	}
+	size_t size = lop.size();
+	std::vector<T> result(size);
+	for (size_t i = 0; i < size; ++i) {
+		result[i] = lop[i] - rop[i];
+	}
+	return result;
+}
+
+
 Poly1d::Poly1d(const std::vector<double>& coeffs) {
 	if (coeffs.empty()) {
 		coeffs_.push_back(0);
