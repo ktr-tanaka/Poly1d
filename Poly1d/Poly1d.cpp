@@ -36,6 +36,13 @@ Poly1d::Poly1d(const std::vector<double>& coeffs) {
 	variable_ = std::string("x");
 }
 
+Poly1d::Poly1d(double val) {
+	coeffs_.push_back(val);
+	order_ = 0;
+	size_ = 1;
+	variable_ = std::string("x");
+}
+
 std::vector<double> Poly1d::coeffs() const {
 	return coeffs_;
 }
@@ -100,17 +107,17 @@ std::ostream& operator<<(std::ostream& ost, const Poly1d& obj) {
 	}
 }
 
-Poly1d Poly1d::operator+(double rop) const {
-	std::vector<double> coeffs = this->coeffs_;
-	coeffs[coeffs.size() - 1] += rop;
-	return Poly1d(coeffs);
-}
-
-Poly1d operator+(double lop, const Poly1d& rop) {
-	std::vector<double> coeffs = rop.coeffs_;
-	coeffs[coeffs.size() - 1] += lop;
-	return Poly1d(coeffs);
-}
+//Poly1d Poly1d::operator+(double rop) const {
+//	std::vector<double> coeffs = this->coeffs_;
+//	coeffs[coeffs.size() - 1] += rop;
+//	return Poly1d(coeffs);
+//}
+//
+//Poly1d operator+(double lop, const Poly1d& rop) {
+//	std::vector<double> coeffs = rop.coeffs_;
+//	coeffs[coeffs.size() - 1] += lop;
+//	return Poly1d(coeffs);
+//}
 
 Poly1d Poly1d::operator-() const {
 	std::vector<double> coeffs = this->coeffs_;
@@ -118,6 +125,9 @@ Poly1d Poly1d::operator-() const {
 	return Poly1d(coeffs);
 }
 
+//Poly1d Poly1d::operator-(double rop) const {
+//
+//}
 
 
 std::vector<cv::Vec2d> Poly1d::roots() const {

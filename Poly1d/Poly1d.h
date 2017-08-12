@@ -13,7 +13,7 @@
   numpy.poly1d と同様。
 */
 class Poly1d {
-public:
+public: /* コンストラクタ */
 	/**
 	  @brief 多項式の係数を渡して実体化するコンストラクタ。
 
@@ -21,7 +21,14 @@ public:
 	*/
 	Poly1d(const std::vector<double>& coeffs);
 
-public:
+	/**
+	  @brief 定数項のみ渡して実体化するコンストラクタ。
+
+	  @param [in] val 定数項。
+	*/
+	Poly1d(double val);
+
+public: /* 計算用メソッド */
 	/**
 	  @brief 多項式の係数を返す。
 
@@ -119,7 +126,7 @@ public:	/* 演算子オーバーロード */
 	@param [in] rop 定数
 	@return 定数を加えた結果の Poly1d オブジェクト
 	*/
-	Poly1d operator+(double rop) const;
+	//Poly1d operator+(double rop) const;
 
 	/**
 	@brief 多項式に定数を加える lop + f(x)
@@ -128,7 +135,7 @@ public:	/* 演算子オーバーロード */
 	@param [in] rop Poly1d オブジェクト
 	@return 定数を加えた結果の Poly1d オブジェクト
 	*/
-	friend Poly1d operator+(double lop, const Poly1d& rop);
+	//friend Poly1d operator+(double lop, const Poly1d& rop);
 
 	/**
 	@brief 多項式の符号を反転させる
@@ -143,7 +150,7 @@ public:	/* 演算子オーバーロード */
 	@param [in] rop 定数
 	@return 定数を引いた結果の Poly1d オブジェクト
 	*/
-	Poly1d operator-(double rop) const;
+	//Poly1d operator-(double rop) const;
 
 	/**
 	@brief 定数から多項式を引く lop - f(x)
@@ -152,7 +159,7 @@ public:	/* 演算子オーバーロード */
 	@param [in] rop Poly1d オブジェクト
 	@return 定数から引いた結果の Poly1d オブジェクト
 	*/
-	friend Poly1d operator-(double lop, const Poly1d& rop);
+	//friend Poly1d operator-(double lop, const Poly1d& rop);
 
 private:
 	std::vector<double> coeffs_; //!< 多項式の係数。高次から順に格納。
