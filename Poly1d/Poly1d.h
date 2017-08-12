@@ -234,6 +234,13 @@ private:
 	  @return lop と rop の最高次の項の除算結果 Poly1d オブジェクト
 	*/
 	friend Poly1d divideLeadingTerms_(const Poly1d& lop, const Poly1d& rop);
+
+	/**
+	  @brief 多項式が 0 であるかどうか返す
+
+	  @return true / false
+	*/
+	bool is_zero_() const;
 };
 
 

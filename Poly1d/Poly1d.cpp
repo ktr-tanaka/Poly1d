@@ -220,7 +220,21 @@ Poly1d Poly1d::operator*(const Poly1d& rop) const {
 }
 
 std::vector<Poly1d> Poly1d::operator/(const Poly1d& rop) const {
+	if (rop.is_zero_()) {
+		throw std::invalid_argument("0 œŽZ‚Å‚·");
+	}
+	Poly1d quotient(0);
+	Poly1d reminder = (*this);
 
+}
+
+bool Poly1d::is_zero_() const {
+	if (this->order_ == 0 && is_zero(this->coeffs_[0]) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 Poly1d divideLeadingTerms_(const Poly1d& lop, const Poly1d& rop) {
