@@ -140,7 +140,7 @@ public:	/* 演算子オーバーロード */
 	/**
 	@brief 多項式の符号を反転させる
 
-	@return 係数の符号を反転させた Poly1d オブジェクトs
+	@return 係数の符号を反転させた Poly1d オブジェクト
 	*/
 	Poly1d operator-() const;
 

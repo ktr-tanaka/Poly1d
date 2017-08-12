@@ -11,8 +11,8 @@ static bool is_zero(T val, double epsilon = 1e-7) {
 }
 
 template <typename T>
-static void invert_sign_of_vector(std::vector<T> vec) {
-	for (size_t i = 0, size = vec.size; i < size; ++i) {
+static void invert_sign_of_vector(std::vector<T>& vec) {
+	for (size_t i = 0, size = vec.size(); i < size; ++i) {
 		vec[i] = -vec[i];
 	}
 }
@@ -93,8 +93,12 @@ std::ostream& operator<<(std::ostream& ost, const Poly1d& obj) {
 					else {
 						ost << " - ";
 					}
+					ost << std::fabs(obj[n]);
 				}
-				ost << std::fabs(obj[n]);
+				else {
+					ost << obj[n];
+				}
+
 				if (n > 1) {
 					ost << " " << obj.variable_ << "^" << n;
 				}

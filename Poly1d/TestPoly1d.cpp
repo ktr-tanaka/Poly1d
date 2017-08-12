@@ -59,5 +59,8 @@ int main() {
 	std::cout << poly1.integ(3, 2) << std::endl;
 	std::vector<double> k = { 1,2, 3 };
 	std::cout << poly1.integ(3, k) << std::endl;
+
+	std::cout << Poly1d(4) << std::endl;
+	std::cout << -poly1 << std::endl;
 }
 
