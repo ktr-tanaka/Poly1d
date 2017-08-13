@@ -62,30 +62,63 @@ static void align_size_of_vectors(std::vector<T>& vec1, std::vector<T>& vec2) {
 	}
 }
 
-Poly1d::Poly1d(const std::vector<double>& coeffs) {
-	if (coeffs.empty()) {
-		coeffs_.push_back(0);
+Poly1d::Poly1d(const std::vector<double>& vec, bool r, const char* variable) {
+	if (r == false) {
+		/* vec ‚Í‘½€®‚ÌŒW” */
+		std::vector<double> coeffs = vec;
+		variable_ = std::string(variable);
+		if (coeffs.empty()) {
+			coeffs_.push_back(0);
+			order_ = 0;
+			size_ = 1;
+		}
+		else {
+			std::vector<double> tmp = coeffs;
+			while (is_zero(tmp[0]) && tmp.size() > 1) {
+				tmp.erase(tmp.begin());
+			}
+			size_ = tmp.size();
+			coeffs_ = tmp;
+			order_ = size_ - 1;
+		}
+	}
+	else {
+		/* vec ‚Í‘½€®‚ÌÀ”ª */
+		std::vector<double> roots = vec;
+		Poly1d temp(0);
+		if (roots.empty()) {
+			/* x ‚Å‰Šú‰» */
+			std::vector<double> coeffs = { 1, 0 };
+			temp = Poly1d(coeffs);
+		}
+		else {
+			temp = Poly1d(1);
+			for each (double root in roots) {
+				std::vector<double> x = { 1, 0 };
+				temp = temp * (Poly1d(x) - root);
+			}
+		}
+		variable_ = std::string(variable);
+		coeffs_ = temp.coeffs_;
+		size_ = temp.size_;
+		order_ = temp.order_;
+	}
+}
+
+Poly1d::Poly1d(double val, bool r, const char* variable) {
+	if (r == false) {
+		/* val ‚Å‰Šú‰» */
+		coeffs_.push_back(val);
 		order_ = 0;
 		size_ = 1;
 	}
 	else {
-		std::vector<double> tmp = coeffs;
-		while (is_zero(tmp[0]) && tmp.size() > 1) {
-			tmp.erase(tmp.begin());
-		}
-		size_ = tmp.size();
-		coeffs_ = tmp;
-		order_ = size_ - 1;
+		/* x - val ‚Å‰Šú‰» */
+		std::vector<double> coeffs = { 1, -val };
+		order_ = 1;
+		size_ = 2;
 	}
-
-	variable_ = std::string("x");
-}
-
-Poly1d::Poly1d(double val) {
-	coeffs_.push_back(val);
-	order_ = 0;
-	size_ = 1;
-	variable_ = std::string("x");
+	variable_ = std::string(variable);
 }
 
 std::vector<double> Poly1d::coeffs() const {

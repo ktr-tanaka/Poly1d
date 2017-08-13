@@ -15,18 +15,21 @@
 class Poly1d {
 public: /* コンストラクタ */
 	/**
-	  @brief 多項式の係数を渡して実体化するコンストラクタ。
+	  @brief ベクターを渡して実体化するコンストラクタ。
 
-	  @param [in] coeffs 多項式の係数。高次から順に格納
+	  @param [in] vec r = False のときは多項式係数を高次から格納したベクター。r = True のときは実数根を格納したベクター。
+	  @param [in] r vec が係数であるか(False)、実数根であるか(True)
+	  @param [in] variable Poly1d オブジェクトを出力ストリームへ表示するときに使われる変数の文字。
 	*/
-	Poly1d(const std::vector<double>& coeffs);
+	Poly1d(const std::vector<double>& coeffs, bool r = false, const char* variable = "x");
 
 	/**
-	  @brief 定数項のみ渡して実体化するコンストラクタ。
+	  @brief 一つの数値を渡して実体化するコンストラクタ。
 
-	  @param [in] val 定数項。
+	  @param [in] val r = False のときは定数項。r = True のときは次数根。
+	  @param [in] variable Poly1d オブジェクトを出力ストリームへ表示するときに使われる変数の文字。
 	*/
-	Poly1d(double val);
+	Poly1d(double val, bool r = false, const char* variable = "x");
 
 public: /* 計算用メソッド */
 	/**
@@ -259,6 +262,8 @@ private:
 	  @return true / false
 	*/
 	bool is_zero_() const;
+
+
 };
 
 
