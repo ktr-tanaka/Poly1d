@@ -92,6 +92,15 @@ public: /* 計算用メソッド */
 	*/
 	Poly1d integ(int m, std::vector<double> k) const;
 
+	/**
+	  @brief 与えられた座標から最も近い多項式関数上の座標を求める
+
+	  @param [in] point 座標
+	  @param [out] nearest point から最も近い多項式関数上の座標
+	  @return point と nearest の距離
+	*/
+	double nearestPoint(const cv::Point2d& p, cv::Point2d& nearest) const;
+
 public:	/* 演算子オーバーロード */
 	/**
 	@brief 多項式を代数的に表示する

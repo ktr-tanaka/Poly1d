@@ -361,3 +361,28 @@ Poly1d Poly1d::integOnce_(double k) const {
 
 	return Poly1d(integ_coeffs);
 }
+
+double Poly1d::nearestPoint(const cv::Point2d& p, cv::Point2d& nearest) const {
+	std::vector<double> t_coeffs = { 1, 0 };
+	Poly1d t(t_coeffs);
+
+	Poly1d ll = (p.x - t)*(p.x - t) + (p.y - (*this))*(p.y - (*this));
+
+	Poly1d dll_dt = ll.deriv();
+	std::vector<double> dll_dt_roots = dll_dt.rootsReal();
+
+	double ll_min = std::numeric_limits<double>::max();
+	double t_min;
+	for each (double t_temp in dll_dt_roots) {
+		double ll_temp = ll(t_temp);
+		if (ll_temp < ll_min) {
+			ll_min = ll_temp;
+			t_min = t_temp;
+		}
+	}
+	nearest.x = t_min;
+	nearest.y = (*this)(t_min);
+
+	return std::sqrt(ll_min);
+}
+
