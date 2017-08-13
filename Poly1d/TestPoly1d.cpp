@@ -80,5 +80,15 @@ int main() {
 	std::cout << poly1 << std::endl;
 	std::cout << poly1 * 10 << std::endl;
 	std::cout << poly1 / 10 << std::endl;
+
+	std::cout << poly1 << std::endl;
+	cv::Point2d p(2, 0);
+	cv::Point2d nearest;
+	double nearest_dist = poly1.nearestPoint(p, nearest);
+	std::cout << nearest_dist << ", " << nearest << std::endl;
+
+	cv::Point2d nearest_check;
+	double nearest_dist_check = poly1.nearestPoint(nearest, nearest_check);
+	std::cout << nearest_dist_check << ", " << nearest_check << std::endl;
 }
 
