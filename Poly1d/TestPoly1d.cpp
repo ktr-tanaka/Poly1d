@@ -90,5 +90,19 @@ int main() {
 	cv::Point2d nearest_check;
 	double nearest_dist_check = poly1.nearestPoint(nearest, nearest_check);
 	std::cout << nearest_dist_check << ", " << nearest_check << std::endl;
+
+	std::vector<double> test1_coeffs = { 1,2,3,4 };
+	Poly1d test1(test1_coeffs);
+	std::cout << test1 << std::endl;
+	Poly1d test2(test1_coeffs, false, "t");
+	std::cout << test2 << std::endl;
+	std::vector<double> test2_roots = { 1,2,3 };
+	Poly1d test3(test2_roots, true);
+	std::cout << test3 << std::endl;
+	Poly1d test4(test2_roots, true, "t");
+	std::cout << test4 << std::endl;
+
+	std::cout << Poly1d(4) << std::endl;
+	std::cout << Poly1d(4, true, "t") << std::endl;
 }
 

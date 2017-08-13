@@ -115,6 +115,7 @@ Poly1d::Poly1d(double val, bool r, const char* variable) {
 	else {
 		/* x - val ‚Å‰Šú‰» */
 		std::vector<double> coeffs = { 1, -val };
+		coeffs_ = coeffs;
 		order_ = 1;
 		size_ = 2;
 	}
