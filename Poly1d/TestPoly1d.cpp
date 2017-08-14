@@ -36,6 +36,7 @@ int main() {
 
 	print_contents_of_vector(poly1.roots());
 	print_contents_of_vector(poly1.rootsReal());
+	// ちょっとコメントつっこんでみる(gitのuser.nameを変えてみた
 
 	/* 代入演算子働くよね？ */
 	Poly1d poly2 = poly1;
