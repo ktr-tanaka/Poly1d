@@ -6,6 +6,7 @@
 #include "Poly1d.h"
 #include <iostream>
 #include <vector>
+#include <cstdio>
 
 template <typename T>
 static void print_contents_of_vector(const std::vector<T>& vec) {
@@ -16,94 +17,73 @@ static void print_contents_of_vector(const std::vector<T>& vec) {
 };
 
 int main() {
-	std::vector<double> coefs = {
-		1, -3, -1, 3
-	};
+	/* ƒRƒ“ƒXƒgƒ‰ƒNƒ^ */
+	std::vector<double> coeffs = {1, -3, -1, 3};
+	Poly1d p1(coeffs);
+	std::cout << p1 << std::endl;
+	Poly1d p1_t(coeffs, false, "hoge");
+	std::cout << p1_t << std::endl;
+	std::vector<double> roots = { -1, 1, 3 };
+	Poly1d p1_by_root(roots, true);
+	std::cout << p1_by_root << std::endl;
 
-	Poly1d poly1(coefs);
-	
-	std::vector<double> returned_coefs = poly1.coeffs();
-	print_contents_of_vector(returned_coefs);
+	/* ‚ ‚é’l‚ğ‘½€®‚ÅÊ‚µ‚½’l‚ğ•Ô‚· */
+	std::printf("4.0 -> %.1f\n", p1(4.0));
 
-	std::cout << "order: " << poly1.order() << std::endl;
+	/* ŒW”AŸ”‚ğ“¾‚é */
+	std::vector<double> c = p1.coeffs(); // ŒW”
+	double a2 = p1[2]; // “ñŸ‚ÌŒW”
+	double n = p1.order(); // ‘½€®‚ÌŸ”
 
-	std::cout << poly1(3.5) << std::endl;
+	/* ‰ÁZAŒ¸ZAæZ */
+	std::vector<double> coeffs2 = { -2, 2, 4 };
+	Poly1d p2(coeffs2);
+	std::cout << "p1: " << p1 << std::endl;
+	std::cout << "p2: " << p2 << std::endl;
+	std::cout << "+ : " << p1 + p2 << std::endl;
+	std::cout << "- : " << p1 - p2 << std::endl;
+	std::cout << "* : " << p1 * p2 << std::endl;
 
-	std::cout << poly1[2] << std::endl;
-	std::cout << poly1[-100] << std::endl;
+	/* œZ */
+	std::cout << "p1: " << p1 << std::endl;
+	std::cout << "p2: " << p2 << std::endl;
+	std::vector<Poly1d> division_result = p1 / p2;
+	std::cout << "¤@: " << division_result[0] << std::endl;
+	std::cout << "è—]: " << division_result[1] << std::endl;
 
-	std::cout << poly1 << std::endl;
+	/* ª‚ğ‹‚ß‚é */
+	std::vector<double> coeffs3 = {1, -2, 3};
+	Poly1d p3(coeffs3);
+	std::vector<cv::Vec2d> result1 = (p1 * p3).roots();
+	print_contents_of_vector(result1);
 
-	print_contents_of_vector(poly1.roots());
-	print_contents_of_vector(poly1.rootsReal());
-	// ‚¿‚å‚Á‚ÆƒRƒƒ“ƒg‚Â‚Á‚±‚ñ‚Å‚İ‚é(git‚Ìuser.name‚ğ•Ï‚¦‚Ä‚İ‚½
+	/* À”­‚Ì‚İ */
+	std::vector<double> result2 = (p1 * p3).rootsReal();
+	print_contents_of_vector(result2);
 
-	/* ‘ã“ü‰‰Zq“­‚­‚æ‚ËH */
-	Poly1d poly2 = poly1;
-	std::cout << poly2 << std::endl;
-	
-	/* ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ÍH */
-	Poly1d poly3(std::vector<double>(6));
-	std::cout << "poly3: " << poly3 << std::endl;
-	poly3 = poly1;
-	std::cout << poly3 << std::endl;
+	/* ”÷•ª */
+	std::cout << p1 << std::endl
+              << p1.deriv() << std::endl
+              << p1.deriv(2) << std::endl
+              << p1.deriv(3) << std::endl
+              << p1.deriv(4) << std::endl;
 
-	/* ‚Ñ‚Ô‚ñ` */
-	std::cout << poly1.deriv() << std::endl;
-	/* ‚É`‚©`‚¢`‚Ñ`‚Ô`‚ñ```` */
-	std::cout << poly1.deriv(2) << std::endl;
-	/* ‚²`‚©`‚¢`(ry*/
-	std::cout << poly1.deriv(3) << std::endl;
-	Poly1d check = poly1.deriv(3);
+	/* •s’èÏ•ª */
+	std::cout << p1 << std::endl
+		<< p1.integ(1) << std::endl
+		<< p1.integ(2) << std::endl;
 
-	std::cout << poly1.integ(1, 2) << std::endl;
-	std::cout << poly1.integ(3, 2) << std::endl;
-	std::vector<double> k = { 1,2, 3 };
-	std::cout << poly1.integ(3, k) << std::endl;
+	/* •s’èÏ•ªiÏ•ª’è”w’èj */
+	std::cout << p1.integ(1, 100) << std::endl;
+	std::vector<double> consts = { 100, 200 };
+	std::cout << p1.integ(2, consts) << std::endl;
 
-	std::cout << Poly1d(4) << std::endl;
-	std::cout << -poly1 << std::endl;
-
-	std::cout << poly1 + poly1 << std::endl;
-	std::cout << poly1 - poly1 << std::endl;
-	std::cout << poly1 + 5 << std::endl;
-	std::cout << 5 + poly1 << std::endl;
-	std::cout << poly1 - 5 << std::endl;
-	std::cout << 5 - poly1 << std::endl;
-	std::cout << 5 + (-poly1) << std::endl;
-
-	std::cout << poly1 * poly1 << std::endl;
-
-	std::vector<double> poly4_coeffs = { 2, -3, -1, 3 };
-	Poly1d poly4(poly4_coeffs);
-	print_contents_of_vector(poly1 / poly4);
-
-	std::cout << poly1 << std::endl;
-	std::cout << poly1 * 10 << std::endl;
-	std::cout << poly1 / 10 << std::endl;
-
-	std::cout << poly1 << std::endl;
+	/* Å‹ß–T“_‚Æ‹——£ */
+	std::cout << p1 << std::endl;
 	cv::Point2d p(2, 0);
 	cv::Point2d nearest;
-	double nearest_dist = poly1.nearestPoint(p, nearest);
+	double nearest_dist = p1.nearestPoint(p, nearest);
 	std::cout << nearest_dist << ", " << nearest << std::endl;
 
-	cv::Point2d nearest_check;
-	double nearest_dist_check = poly1.nearestPoint(nearest, nearest_check);
-	std::cout << nearest_dist_check << ", " << nearest_check << std::endl;
-
-	std::vector<double> test1_coeffs = { 1,2,3,4 };
-	Poly1d test1(test1_coeffs);
-	std::cout << test1 << std::endl;
-	Poly1d test2(test1_coeffs, false, "t");
-	std::cout << test2 << std::endl;
-	std::vector<double> test2_roots = { 1,2,3 };
-	Poly1d test3(test2_roots, true);
-	std::cout << test3 << std::endl;
-	Poly1d test4(test2_roots, true, "t");
-	std::cout << test4 << std::endl;
-
-	std::cout << Poly1d(4) << std::endl;
-	std::cout << Poly1d(4, true, "t") << std::endl;
 }
 
