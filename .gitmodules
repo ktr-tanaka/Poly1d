@@ -1,4 +1,0 @@
-[submodule "docs"]
-	path = docs
-	url = https://github.com/ktr-tanaka/Poly1d.git
-	branch = gh-pages
