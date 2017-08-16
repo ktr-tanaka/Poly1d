@@ -21,12 +21,13 @@ public: /* コンストラクタ */
 	  @param [in] r vec が係数であるか(False)、実数根であるか(True)
 	  @param [in] variable Poly1d オブジェクトを出力ストリームへ表示するときに使われる変数の文字。
 	*/
-	Poly1d(const std::vector<double>& coeffs, bool r = false, const char* variable = "x");
+	Poly1d(const std::vector<double>& vec, bool r = false, const char* variable = "x");
 
 	/**
 	  @brief 一つの数値を渡して実体化するコンストラクタ。
 
-	  @param [in] val r = False のときは定数項。r = True のときは次数根。
+	  @param [in] val r = False のときは定数項。r = True のときは実数根。
+	  @param [in] r val が定数項であるか(False)、実数根であるか(True)
 	  @param [in] variable Poly1d オブジェクトを出力ストリームへ表示するときに使われる変数の文字。
 	*/
 	Poly1d(double val, bool r = false, const char* variable = "x");
@@ -98,7 +99,7 @@ public: /* 計算用メソッド */
 	/**
 	  @brief 与えられた座標から最も近い多項式関数上の座標を求める
 
-	  @param [in] point 座標
+	  @param [in] p 座標
 	  @param [out] nearest point から最も近い多項式関数上の座標
 	  @return point と nearest の距離
 	*/
